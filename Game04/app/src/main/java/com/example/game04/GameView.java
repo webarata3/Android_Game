@@ -1,4 +1,4 @@
-package com.example.game03;
+package com.example.game04;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,7 +13,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameView extends View {
+    private static final Paint PAINT = new Paint();
     private Droid droid;
+
+    private Bitmap leftArrow;
+    private Bitmap rightArrow;
 
     public GameView(Context context) {
         super(context);
@@ -41,6 +45,15 @@ public class GameView extends View {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.droid);
             droid = new Droid(bitmap, canvas.getWidth(), canvas.getHeight());
         }
+        if (leftArrow == null) {
+            leftArrow = BitmapFactory.decodeResource(getResources(), R.drawable.left_arrow);
+        }
+        if (rightArrow == null) {
+            rightArrow = BitmapFactory.decodeResource(getResources(), R.drawable.right_arrow);
+        }
+
+        canvas.drawBitmap(leftArrow, 0, 0, new Paint());
+        canvas.drawBitmap(rightArrow, 499, 0, new Paint());
 
         droid.move();
         droid.draw(canvas);
@@ -59,7 +72,7 @@ public class GameView extends View {
             case MotionEvent.ACTION_DOWN:
                 return true;
             case MotionEvent.ACTION_UP:
-                droid.jump(200);
+//                droid.jump(200);
                 break;
         }
         return super.onTouchEvent(event);
