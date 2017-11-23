@@ -38,6 +38,7 @@ public class GameView extends View {
         }, 0, 1000 / FPS);
     }
 
+    @Override
     public void onDraw(Canvas canvas) {
         if (droidBitmap == null) {
             droidBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.droid);
