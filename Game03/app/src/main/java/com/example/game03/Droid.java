@@ -1,15 +1,18 @@
-package com.example.game02;
+package com.example.game03;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class Droid {
     private final Paint PAINT = new Paint();
     private Rect rect;
     private Bitmap bitmap;
+
+    private float acceleration;
+
+    private int canvasHeight;
 
     public Droid(Bitmap bitmap, int canvasWidth, int canvasHeight) {
         // ドロイド君を中央に表示する
@@ -18,6 +21,7 @@ public class Droid {
 
         rect = new Rect(left, top, left + bitmap.getWidth(), top + bitmap.getHeight());
         this.bitmap = bitmap;
+        this.canvasHeight = canvasHeight;
     }
 
     public void draw(Canvas canvas) {
@@ -25,6 +29,14 @@ public class Droid {
     }
 
     public void move() {
-        rect.top = rect.top - 5;
+        acceleration = acceleration - 30;
+        if (acceleration < 0 && acceleration < -(canvasHeight - rect.bottom)) {
+            acceleration = -(canvasHeight - rect.bottom);
+        }
+        rect.offset(0, -Math.round(acceleration));
+    }
+
+    public void jump(float acceleration) {
+        this.acceleration = acceleration;
     }
 }
