@@ -43,7 +43,7 @@ public class Droid {
         }
     }
 
-    public boolean hit(Rect missileRect) {
-        return Rect.intersects(rect, missileRect);
+    public boolean hit(Missile missile) {
+        return Rect.intersects(rect, missile.getRect());
     }
 }

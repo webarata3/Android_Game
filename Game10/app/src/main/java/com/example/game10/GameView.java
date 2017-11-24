@@ -21,8 +21,7 @@ public class GameView extends View {
     private Droid droid;
     private LeftArrow leftArrow;
     private RightArrow rightArrow;
-
-    private Rect missileRect;
+    private Missile missile;
 
     private boolean pushLeftArrow;
     private boolean pushRightArrow;
@@ -52,13 +51,6 @@ public class GameView extends View {
     public void onDraw(Canvas canvas) {
         initOnDraw(canvas);
 
-        PAINT.setColor(Color.RED);
-        canvas.drawRect(missileRect, PAINT);
-        missileRect.offset(0, 10);
-        if (missileRect.top > canvas.getHeight()) {
-            initMissile(missileRect, canvas);
-        }
-
         leftArrow.draw(canvas);
         rightArrow.draw(canvas);
 
@@ -70,9 +62,11 @@ public class GameView extends View {
         }
 
         droid.draw(canvas);
+        missile.move();
+        missile.draw(canvas);
 
-        if (droid.hit(missileRect)) {
-            initMissile(missileRect, canvas);
+        if (droid.hit(missile)) {
+            missile.initMissile();
             canvas.drawColor(Color.RED);
         }
     }
@@ -93,9 +87,8 @@ public class GameView extends View {
             bitmap = Bitmap.createScaledBitmap(bitmap, 64, 64, false);
             rightArrow = new RightArrow(bitmap, canvas.getWidth(), canvas.getHeight());
         }
-        if (missileRect == null) {
-            missileRect = new Rect(0, 0, 10, 40);
-            initMissile(missileRect, canvas);
+        if (missile == null) {
+            missile = new Missile(canvas.getWidth(), canvas.getHeight());
         }
     }
 
