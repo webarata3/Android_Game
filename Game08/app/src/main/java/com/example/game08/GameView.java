@@ -109,8 +109,6 @@ public class GameView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
 
-        pushLeftArrow = false;
-        pushRightArrow = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (leftArrow.contains((int) event.getX(), (int) event.getY())) {
@@ -120,6 +118,8 @@ public class GameView extends View {
                 }
                 return true;
             case MotionEvent.ACTION_UP:
+                pushLeftArrow = false;
+                pushRightArrow = false;
                 break;
         }
         return super.onTouchEvent(event);
