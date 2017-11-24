@@ -10,13 +10,20 @@ public class Droid {
     private Rect rect;
     private Bitmap bitmap;
 
+    private int moveMaxWidth;
+    private int moveHeight;
+
     public Droid(Bitmap bitmap, int canvasWidth, int canvasHeight) {
+        moveMaxWidth = canvasWidth - bitmap.getWidth();
+        moveHeight = canvasHeight - bitmap.getHeight();
+
         // ドロイド君を中央に表示する
-        int left = (canvasWidth - bitmap.getWidth()) / 2;
-        int top = canvasHeight - bitmap.getHeight();
+        int left = moveMaxWidth / 2;
+        int top = moveHeight;
 
         rect = new Rect(left, top, left + bitmap.getWidth(), top + bitmap.getHeight());
         this.bitmap = bitmap;
+
     }
 
     public void draw(Canvas canvas) {
@@ -25,9 +32,15 @@ public class Droid {
 
     public void moveLeft() {
         rect.offset(-10, 0);
+        if (rect.left < 0) {
+            rect.offsetTo(0, moveHeight);
+        }
     }
 
     public void moveRight() {
         rect.offset(10, 0);
+        if (rect.left > moveMaxWidth) {
+            rect.offsetTo(moveMaxWidth, moveHeight);
+        }
     }
 }
