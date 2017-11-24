@@ -1,4 +1,4 @@
-package com.example.game09;
+package com.example.game10;
 
 import android.content.Context;
 import android.graphics.Bitmap;
