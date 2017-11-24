@@ -23,8 +23,4 @@ public class Droid {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, rect.left, rect.top, PAINT);
     }
-
-    public void move() {
-        rect.top = rect.top - 5;
-    }
 }

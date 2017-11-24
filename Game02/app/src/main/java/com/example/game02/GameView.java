@@ -7,8 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Timer;
@@ -29,42 +27,25 @@ public class GameView extends View {
                 invalidate();
             }
         };
-        Timer timer = new Timer(false);
-        timer.schedule(new TimerTask() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 handler.post(requestRedraw);
             }
-        }, 0, 1000 / FPS);
+        };
+        Timer timer = new Timer(false);
+        timer.schedule(timerTask, 0, 1000 / FPS);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         if (droid == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.droid);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
             droid = new Droid(bitmap, canvas.getWidth(), canvas.getHeight());
         }
 
         droid.draw(canvas);
-    }
-
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        return true;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        performClick();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                return true;
-            case MotionEvent.ACTION_UP:
-                droid.move();
-                break;
-        }
-        return super.onTouchEvent(event);
     }
 }
 
