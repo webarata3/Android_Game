@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Timer;
@@ -29,23 +28,24 @@ public class GameView extends View {
                 invalidate();
             }
         };
-        Timer timer = new Timer(false);
-        timer.schedule(new TimerTask() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 handler.post(requestRedraw);
             }
-        }, 0, 1000 / FPS);
+        };
+        Timer timer = new Timer(false);
+        timer.schedule(timerTask, 0, 1000 / FPS);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         if (droidBitmap == null) {
             droidBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.droid);
+            droidBitmap = Bitmap.createScaledBitmap(droidBitmap, 100, 100, false);
         }
 
         if (droidRect == null) {
-            // ドロイド君を中央に表示する
             int left = (canvas.getWidth() - droidBitmap.getWidth()) / 2;
             int top = canvas.getHeight() - droidBitmap.getHeight();
 
@@ -53,25 +53,6 @@ public class GameView extends View {
         }
 
         canvas.drawBitmap(droidBitmap, droidRect.left, droidRect.top, PAINT);
-    }
-
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        return true;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        performClick();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                return true;
-            case MotionEvent.ACTION_UP:
-                droidRect.offset(0, -5);
-                break;
-        }
-        return super.onTouchEvent(event);
     }
 }
 
