@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Timer;
@@ -70,5 +71,29 @@ public class GameView extends View {
         canvas.drawBitmap(rightArrow, rightRect.left, rightRect.top, PAINT);
 
         droid.draw(canvas);
+    }
+
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        return true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        performClick();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                return true;
+            case MotionEvent.ACTION_UP:
+                if (leftRect.contains((int) event.getX(), (int) event.getY())) {
+                    droid.moveLeft();
+                }
+                if (rightRect.contains((int) event.getX(), (int) event.getY())) {
+                    droid.moveRight();
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 }
