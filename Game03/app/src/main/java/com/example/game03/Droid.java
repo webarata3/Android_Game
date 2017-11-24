@@ -22,12 +22,4 @@ public class Droid {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, rect.left, rect.top, PAINT);
     }
-
-    public void moveLeft() {
-        rect.offset(-10, 0);
-    }
-
-    public void moveRight() {
-        rect.offset(10, 0);
-    }
 }
