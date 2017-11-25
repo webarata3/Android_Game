@@ -17,10 +17,11 @@ public class GameView extends View {
     private Bitmap droidBitmap;
     private Rect droidRect;
 
+    private static final int FPS = 60;
+
     public GameView(Context context) {
         super(context);
 
-        final int FPS = 60;
         final Handler handler = new Handler();
         TimerTask timerTask = new TimerTask() {
             @Override
