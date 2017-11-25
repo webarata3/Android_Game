@@ -32,10 +32,18 @@ public class GameView extends View {
 
     private TimerTask timerTask;
 
+    private static final int FPS = 60;
+
     public GameView(Context context) {
         super(context);
 
-        final int FPS = 60;
+        double density = getContext().getResources().getDisplayMetrics().density;
+        DROID_SIZE = (int) (density * 50.0);
+        DROID_SPEED = (int) (density * 5.0);
+        ARROW_SIZE = (int) (density * 50.0);
+        MISSILE_SPEED = (int) (density * 5.0);
+        MISSILE_SIZE = (int) (density * 5.0);
+
         final Handler handler = new Handler();
         timerTask = new TimerTask() {
             @Override
@@ -50,12 +58,6 @@ public class GameView extends View {
         };
         Timer timer = new Timer(false);
         timer.schedule(timerTask, 0, 1000 / FPS);
-        double density = getContext().getResources().getDisplayMetrics().density;
-        DROID_SIZE = (int) (density * 50.0);
-        DROID_SPEED = (int) (density * 5.0);
-        ARROW_SIZE = (int) (density * 50.0);
-        MISSILE_SPEED = (int) (density * 5.0);
-        MISSILE_SIZE = (int) (density * 5.0);
     }
 
     @Override
