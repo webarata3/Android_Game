@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.view.View;
 
@@ -16,10 +15,11 @@ public class GameView extends View {
     private static final Paint PAINT = new Paint();
     private Droid droid;
 
+    private static final int FPS = 60;
+
     public GameView(Context context) {
         super(context);
 
-        final int FPS = 60;
         final Handler handler = new Handler();
         TimerTask timerTask = new TimerTask() {
             @Override
