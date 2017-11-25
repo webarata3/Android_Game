@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -29,7 +30,8 @@ public class GameView extends View {
     private final int MISSILE_SIZE;
 
     private static final int FPS = 60;
-    private TimerTask timerTask;
+
+    private boolean gameOver = false;
 
     public GameView(Context context) {
         super(context);
@@ -41,12 +43,8 @@ public class GameView extends View {
         MISSILE_SPEED = (int) (density * 5.0);
         MISSILE_SIZE = (int) (density * 5.0);
 
-        beginDraw();
-    }
-
-    private void beginDraw() {
         final Handler handler = new Handler();
-        timerTask = new TimerTask() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 handler.post(new Runnable() {
@@ -76,13 +74,20 @@ public class GameView extends View {
         }
 
         droid.draw(canvas);
-        missile.move();
-        missile.draw(canvas);
+        if (!gameOver) {
+            missile.move();
+            missile.draw(canvas);
+        }
 
-        if (droid.hit(missile)) {
+        if (gameOver || droid.hit(missile)) {
+            gameOver = true;
             missile.initMissile();
+            missile.draw(canvas);
             droid.drawFire(canvas);
-            timerTask.cancel();
+            PAINT.setColor(Color.RED);
+            PAINT.setTextSize(50);
+            canvas.drawText(getContext().getString(R.string.restart), 100, 100, PAINT);
+
         }
     }
 
@@ -126,7 +131,7 @@ public class GameView extends View {
                 } else if (rightArrow.contains((int) event.getX(), (int) event.getY())) {
                     pushRightArrow = true;
                 }
-                return true;
+                break;
             case MotionEvent.ACTION_UP:
                 pushLeftArrow = false;
                 pushRightArrow = false;

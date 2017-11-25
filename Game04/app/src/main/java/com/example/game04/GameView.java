@@ -84,7 +84,7 @@ public class GameView extends View {
         performClick();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                return true;
+                break;
             case MotionEvent.ACTION_UP:
                 if (leftRect.contains((int) event.getX(), (int) event.getY())) {
                     droid.moveLeft();
