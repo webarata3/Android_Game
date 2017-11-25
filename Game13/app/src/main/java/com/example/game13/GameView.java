@@ -87,12 +87,7 @@ public class GameView extends View {
             missile.initMissile();
             missile.draw(canvas);
             droid.drawFire(canvas);
-            PAINT.setColor(Color.RED);
-            PAINT.setTextSize(MESSAGE_FONT_SIZE);
-            String restartString = getContext().getString(R.string.restart);
-            int width = (int) PAINT.measureText(restartString);
-            int x = (canvas.getWidth() - width) / 2;
-            canvas.drawText(restartString, x, MESSAGE_HEIGHT, PAINT);
+            showRestartMessage(canvas);
         }
     }
 
@@ -117,6 +112,15 @@ public class GameView extends View {
         if (missile == null) {
             missile = new Missile(MISSILE_SPEED, MISSILE_SIZE, canvas.getWidth(), canvas.getHeight());
         }
+    }
+
+    private void showRestartMessage(Canvas canvas) {
+        PAINT.setColor(Color.RED);
+        PAINT.setTextSize(MESSAGE_FONT_SIZE);
+        String restartString = getContext().getString(R.string.restart);
+        int width = (int) PAINT.measureText(restartString);
+        int x = (canvas.getWidth() - width) / 2;
+        canvas.drawText(restartString, x, MESSAGE_HEIGHT, PAINT);
     }
 
     @Override
