@@ -94,6 +94,6 @@ public class GameView extends View {
                 }
                 break;
         }
-        return super.onTouchEvent(event);
+        return true;
     }
 }
