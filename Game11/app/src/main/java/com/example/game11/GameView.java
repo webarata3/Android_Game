@@ -119,7 +119,7 @@ public class GameView extends View {
                 } else if (rightArrow.contains((int) event.getX(), (int) event.getY())) {
                     pushRightArrow = true;
                 }
-                return true;
+                break;
             case MotionEvent.ACTION_UP:
                 pushLeftArrow = false;
                 pushRightArrow = false;
