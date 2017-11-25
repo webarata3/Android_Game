@@ -10,12 +10,12 @@ import java.util.Random;
 public class Missile {
     private static final Paint PAINT = new Paint();
 
-    private static final int MISSILE_WIDTH = 10;
-    private static final int MISSILE_HEIGHT = 40;
-
     private int missileSpeed;
     private int canvasWidth;
     private int canvasHeight;
+
+    private final int MISSILE_WIDTH;
+    private final int MISSILE_HEIGHT;
 
     private Rect rect;
 
@@ -23,7 +23,9 @@ public class Missile {
         return rect;
     }
 
-    public Missile(int missileSpeed, int canvasWidth, int canvasHeight) {
+    public Missile(int missileSpeed, int missileSize, int canvasWidth, int canvasHeight) {
+        MISSILE_WIDTH = missileSize;
+        MISSILE_HEIGHT = missileSize * 4;
         rect = new Rect(0, 0, MISSILE_WIDTH, MISSILE_HEIGHT);
         this.missileSpeed = missileSpeed;
         this.canvasWidth = canvasWidth;

@@ -6,13 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,8 +24,10 @@ public class GameView extends View {
     private boolean pushRightArrow;
 
     private final int DROID_SIZE;
+    private final int DROID_SPEED;
     private final int ARROW_SIZE;
     private final int MISSILE_SPEED;
+    private final int MISSILE_SIZE;
 
     public GameView(Context context) {
         super(context);
@@ -49,10 +48,12 @@ public class GameView extends View {
         };
         Timer timer = new Timer(false);
         timer.schedule(timerTask, 0, 1000 / FPS);
-        double density =  getContext().getResources().getDisplayMetrics().density;
+        double density = getContext().getResources().getDisplayMetrics().density;
         DROID_SIZE = (int) (density * 50.0);
+        DROID_SPEED = (int) (density * 5.0);
         ARROW_SIZE = (int) (density * 50.0);
         MISSILE_SPEED = (int) (density * 5.0);
+        MISSILE_SIZE = (int) (density * 5.0);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class GameView extends View {
         if (droid == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.droid);
             bitmap = Bitmap.createScaledBitmap(bitmap, DROID_SIZE, DROID_SIZE, false);
-            droid = new Droid(bitmap, canvas.getWidth(), canvas.getHeight());
+            droid = new Droid(DROID_SPEED, bitmap, canvas.getWidth(), canvas.getHeight());
         }
         if (leftArrow == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.left_arrow);
@@ -96,14 +97,8 @@ public class GameView extends View {
             rightArrow = new RightArrow(bitmap, canvas.getWidth(), canvas.getHeight());
         }
         if (missile == null) {
-            missile = new Missile(MISSILE_SPEED, canvas.getWidth(), canvas.getHeight());
+            missile = new Missile(MISSILE_SPEED, MISSILE_SIZE, canvas.getWidth(), canvas.getHeight());
         }
-    }
-
-    private void initMissile(Rect rect, Canvas canvas) {
-        Random random = new Random();
-        int x = random.nextInt(canvas.getWidth());
-        rect.offsetTo(x, -40);
     }
 
     @Override
@@ -116,8 +111,6 @@ public class GameView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
 
-        pushLeftArrow = false;
-        pushRightArrow = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (leftArrow.contains((int) event.getX(), (int) event.getY())) {
@@ -127,6 +120,8 @@ public class GameView extends View {
                 }
                 return true;
             case MotionEvent.ACTION_UP:
+                pushLeftArrow = false;
+                pushRightArrow = false;
                 break;
         }
         return super.onTouchEvent(event);
