@@ -122,6 +122,6 @@ public class GameView extends View {
                 pushRightArrow = false;
                 break;
         }
-        return super.onTouchEvent(event);
+        return true;
     }
 }
