@@ -66,18 +66,17 @@ public class GameView extends View {
         leftArrow.draw(canvas);
         rightArrow.draw(canvas);
 
-        if (pushLeftArrow) {
-            droid.moveLeft();
-        }
-        if (pushRightArrow) {
-            droid.moveRight();
-        }
-
-        droid.draw(canvas);
         if (!gameOver) {
+            if (pushLeftArrow) {
+                droid.moveLeft();
+            }
+            if (pushRightArrow) {
+                droid.moveRight();
+            }
             missile.move();
             missile.draw(canvas);
         }
+        droid.draw(canvas);
 
         if (gameOver || droid.hit(missile)) {
             gameOver = true;
@@ -87,7 +86,6 @@ public class GameView extends View {
             PAINT.setColor(Color.RED);
             PAINT.setTextSize(50);
             canvas.drawText(getContext().getString(R.string.restart), 100, 100, PAINT);
-
         }
     }
 
@@ -126,6 +124,7 @@ public class GameView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (gameOver) break;
                 if (leftArrow.contains((int) event.getX(), (int) event.getY())) {
                     pushLeftArrow = true;
                 } else if (rightArrow.contains((int) event.getX(), (int) event.getY())) {
@@ -133,6 +132,10 @@ public class GameView extends View {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                if (gameOver && !pushLeftArrow && !pushRightArrow) {
+                    gameOver = false;
+                    break;
+                }
                 pushLeftArrow = false;
                 pushRightArrow = false;
                 break;
