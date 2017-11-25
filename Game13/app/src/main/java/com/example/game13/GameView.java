@@ -29,6 +29,7 @@ public class GameView extends View {
     private final int MISSILE_SPEED;
     private final int MISSILE_SIZE;
     private final int MESSAGE_FONT_SIZE;
+    private final int MESSAGE_HEIGHT;
 
     private static final int FPS = 60;
 
@@ -44,6 +45,7 @@ public class GameView extends View {
         MISSILE_SPEED = (int) (density * 5.0);
         MISSILE_SIZE = (int) (density * 5.0);
         MESSAGE_FONT_SIZE = (int) (density * 25.0);
+        MESSAGE_HEIGHT = (int) (density * 150.0);
 
         final Handler handler = new Handler();
         TimerTask timerTask = new TimerTask() {
@@ -90,7 +92,7 @@ public class GameView extends View {
             String restartString = getContext().getString(R.string.restart);
             int width = (int) PAINT.measureText(restartString);
             int x = (canvas.getWidth() - width) / 2;
-            canvas.drawText(restartString, x, 100, PAINT);
+            canvas.drawText(restartString, x, MESSAGE_HEIGHT, PAINT);
         }
     }
 
