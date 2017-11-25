@@ -26,16 +26,15 @@ public class GameView extends View {
 
         final int FPS = 60;
         final Handler handler = new Handler();
-        final Runnable requestRedraw = new Runnable() {
-            @Override
-            public void run() {
-                invalidate();
-            }
-        };
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                handler.post(requestRedraw);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        invalidate();
+                    }
+                });
             }
         };
         Timer timer = new Timer(false);
