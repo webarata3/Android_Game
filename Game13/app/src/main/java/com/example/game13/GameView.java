@@ -28,6 +28,7 @@ public class GameView extends View {
     private final int ARROW_SIZE;
     private final int MISSILE_SPEED;
     private final int MISSILE_SIZE;
+    private final int MESSAGE_FONT_SIZE;
 
     private static final int FPS = 60;
 
@@ -42,6 +43,7 @@ public class GameView extends View {
         ARROW_SIZE = (int) (density * 50.0);
         MISSILE_SPEED = (int) (density * 5.0);
         MISSILE_SIZE = (int) (density * 5.0);
+        MESSAGE_FONT_SIZE = (int) (density * 25.0);
 
         final Handler handler = new Handler();
         TimerTask timerTask = new TimerTask() {
@@ -84,8 +86,11 @@ public class GameView extends View {
             missile.draw(canvas);
             droid.drawFire(canvas);
             PAINT.setColor(Color.RED);
-            PAINT.setTextSize(50);
-            canvas.drawText(getContext().getString(R.string.restart), 100, 100, PAINT);
+            PAINT.setTextSize(MESSAGE_FONT_SIZE);
+            String restartString = getContext().getString(R.string.restart);
+            int width = (int) PAINT.measureText(restartString);
+            int x = (canvas.getWidth() - width) / 2;
+            canvas.drawText(restartString, x, 100, PAINT);
         }
     }
 
@@ -133,6 +138,7 @@ public class GameView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 if (gameOver && !pushLeftArrow && !pushRightArrow) {
+                    droid.init();
                     gameOver = false;
                     break;
                 }

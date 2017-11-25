@@ -54,4 +54,8 @@ public class Droid {
     public void drawFire(Canvas canvas) {
         canvas.drawBitmap(fireBitmap, rect.left, rect.top, PAINT);
     }
+
+    public void init() {
+        rect.offsetTo(moveMaxWidth / 2, moveHeight);
+    }
 }
