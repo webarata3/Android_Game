@@ -55,4 +55,3 @@ public class GameView extends View {
         canvas.drawBitmap(droidBitmap, droidRect.left, droidRect.top, PAINT);
     }
 }
-
