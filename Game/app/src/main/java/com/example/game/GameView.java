@@ -23,6 +23,9 @@ public class GameView extends View {
     private Rect leftRect;
     private Rect rightRect;
 
+    private boolean pushLeftArrow;
+    private boolean pushRightArrow;
+
     private static final int FPS = 60;
 
     public GameView(Context context) {
@@ -70,6 +73,13 @@ public class GameView extends View {
         canvas.drawBitmap(leftArrow, leftRect.left, leftRect.top, PAINT);
         canvas.drawBitmap(rightArrow, rightRect.left, rightRect.top, PAINT);
 
+        if (pushLeftArrow) {
+            droid.moveLeft();
+        }
+        if (pushRightArrow) {
+            droid.moveRight();
+        }
+
         droid.draw(canvas);
     }
 
@@ -82,16 +92,18 @@ public class GameView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (leftRect.contains((int) event.getX(), (int) event.getY())) {
+                    pushLeftArrow = true;
+                } else if (rightRect.contains((int) event.getX(), (int) event.getY())) {
+                    pushRightArrow = true;
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                if (leftRect.contains((int) event.getX(), (int) event.getY())) {
-                    droid.moveLeft();
-                }
-                if (rightRect.contains((int) event.getX(), (int) event.getY())) {
-                    droid.moveRight();
-                }
+                pushLeftArrow = false;
+                pushRightArrow = false;
                 break;
         }
         return true;
