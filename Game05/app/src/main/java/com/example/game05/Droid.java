@@ -10,6 +10,8 @@ public class Droid {
     private Rect rect;
     private Bitmap bitmap;
 
+    private static final int MOVE_AMOUNT = 10;
+
     public Droid(Bitmap bitmap, int canvasWidth, int canvasHeight) {
         // ドロイド君を中央に表示する
         int left = (canvasWidth - bitmap.getWidth()) / 2;
@@ -24,10 +26,10 @@ public class Droid {
     }
 
     public void moveLeft() {
-        rect.offset(-10, 0);
+        rect.offset(-MOVE_AMOUNT, 0);
     }
 
     public void moveRight() {
-        rect.offset(10, 0);
+        rect.offset(MOVE_AMOUNT, 0);
     }
 }

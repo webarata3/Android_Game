@@ -13,6 +13,8 @@ public class Droid {
     private int moveMaxWidth;
     private int moveHeight;
 
+    private static final int MOVE_AMOUNT = 10;
+
     public Droid(Bitmap bitmap, int canvasWidth, int canvasHeight) {
         moveMaxWidth = canvasWidth - bitmap.getWidth();
         moveHeight = canvasHeight - bitmap.getHeight();
@@ -31,14 +33,14 @@ public class Droid {
     }
 
     public void moveLeft() {
-        rect.offset(-10, 0);
+        rect.offset(-MOVE_AMOUNT, 0);
         if (rect.left < 0) {
             rect.offsetTo(0, moveHeight);
         }
     }
 
     public void moveRight() {
-        rect.offset(10, 0);
+        rect.offset(MOVE_AMOUNT, 0);
         if (rect.left > moveMaxWidth) {
             rect.offsetTo(moveMaxWidth, moveHeight);
         }
