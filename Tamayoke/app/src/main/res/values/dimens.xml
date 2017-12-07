@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="robotWidth">16dp</dimen>
+    <dimen name="robotHeight">16dp</dimen>
+
+    <dimen name="robotMoveSpeed">2dp</dimen>
+
+    <dimen name="arrowWidth">16dp</dimen>
+    <dimen name="arrowHeight">16dp</dimen>
+
+    <dimen name="missileWidth">2dp</dimen>
+    <dimen name="missileHeight">16dp</dimen>
+    <dimen name="missileSpeed">2dp</dimen>
+</resources>
