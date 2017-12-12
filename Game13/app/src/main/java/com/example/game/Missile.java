@@ -1,4 +1,4 @@
-package com.example.game14;
+package com.example.game;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

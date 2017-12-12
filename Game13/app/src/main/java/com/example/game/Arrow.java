@@ -1,17 +1,25 @@
-package com.example.game13;
+package com.example.game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class LeftArrow {
+public class Arrow {
     private final Paint PAINT = new Paint();
+
+    public enum Direction {
+        LEFT, RIGHT;
+    }
+
     private Rect rect;
     private Bitmap bitmap;
 
-    public LeftArrow(Bitmap bitmap, int canvasWidth, int canvasHeight) {
+    public Arrow(Bitmap bitmap, int canvasWidth, int canvasHeight, Direction direction) {
         int left = 0;
+        if (direction == Direction.RIGHT) {
+            left = canvasWidth - bitmap.getWidth();
+        }
         int top = canvasHeight - bitmap.getHeight();
         rect = new Rect(left, top, left + bitmap.getWidth(), top + bitmap.getHeight());
         this.bitmap = bitmap;

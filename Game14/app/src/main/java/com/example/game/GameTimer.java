@@ -1,4 +1,4 @@
-package com.example.game14;
+package com.example.game;
 
 public class GameTimer {
     private long startTime;
