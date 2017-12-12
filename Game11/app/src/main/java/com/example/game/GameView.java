@@ -1,4 +1,4 @@
-package com.example.game11;
+package com.example.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,8 +16,8 @@ import java.util.TimerTask;
 public class GameView extends View {
     private static final Paint PAINT = new Paint();
     private Droid droid;
-    private LeftArrow leftArrow;
-    private RightArrow rightArrow;
+    private Arrow leftArrow;
+    private Arrow rightArrow;
     private Missile missile;
 
     private boolean pushLeftArrow;
@@ -90,12 +90,12 @@ public class GameView extends View {
         if (leftArrow == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.left_arrow);
             bitmap = Bitmap.createScaledBitmap(bitmap, ARROW_SIZE, ARROW_SIZE, false);
-            leftArrow = new LeftArrow(bitmap, canvas.getWidth(), canvas.getHeight());
+            leftArrow = new Arrow(bitmap, canvas.getWidth(), canvas.getHeight(), Arrow.Direction.LEFT);
         }
         if (rightArrow == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.right_arrow);
             bitmap = Bitmap.createScaledBitmap(bitmap, ARROW_SIZE, ARROW_SIZE, false);
-            rightArrow = new RightArrow(bitmap, canvas.getWidth(), canvas.getHeight());
+            rightArrow = new Arrow(bitmap, canvas.getWidth(), canvas.getHeight(), Arrow.Direction.RIGHT);
         }
         if (missile == null) {
             missile = new Missile(MISSILE_SPEED, MISSILE_SIZE, canvas.getWidth(), canvas.getHeight());
