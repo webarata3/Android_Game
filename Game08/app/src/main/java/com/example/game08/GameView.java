@@ -18,8 +18,8 @@ import java.util.TimerTask;
 public class GameView extends View {
     private static final Paint PAINT = new Paint();
     private Droid droid;
-    private LeftArrow leftArrow;
-    private RightArrow rightArrow;
+    private Arrow leftArrow;
+    private Arrow rightArrow;
 
     private Rect missileRect;
 
@@ -80,12 +80,12 @@ public class GameView extends View {
         if (leftArrow == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.left_arrow);
             bitmap = Bitmap.createScaledBitmap(bitmap, 64, 64, false);
-            leftArrow = new LeftArrow(bitmap, canvas.getWidth(), canvas.getHeight());
+            leftArrow = new Arrow(bitmap, canvas.getWidth(), canvas.getHeight(), Arrow.Direction.LEFT);
         }
         if (rightArrow == null) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.right_arrow);
             bitmap = Bitmap.createScaledBitmap(bitmap, 64, 64, false);
-            rightArrow = new RightArrow(bitmap, canvas.getWidth(), canvas.getHeight());
+            rightArrow = new Arrow(bitmap, canvas.getWidth(), canvas.getHeight(), Arrow.Direction.RIGHT);
         }
         if (missileRect == null) {
             missileRect = new Rect(0, 0, 10, 40);

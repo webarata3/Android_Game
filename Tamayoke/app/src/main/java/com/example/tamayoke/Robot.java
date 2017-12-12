@@ -9,11 +9,8 @@ import android.support.v4.content.ContextCompat;
 
 public class Robot {
     private static final Paint PAINT = new Paint();
-    private final int WIDTH;
-    private final int HEIGHT;
 
     private final Rect rect;
-    private final int COLOR;
     private final int MOVE_SPEED;
 
     private final int MOVE_MAX_WIDTH;
@@ -22,23 +19,23 @@ public class Robot {
     public Robot(Context ctx, Canvas canvas) {
         Resources res = ctx.getResources();
         float density = res.getDisplayMetrics().density;
-        WIDTH = (int) (res.getDimension(R.dimen.robotWidth) * density);
-        HEIGHT = (int) (res.getDimension(R.dimen.robotHeight) * density);
+        int width = (int) (res.getDimension(R.dimen.robotWidth) * density);
+        int height = (int) (res.getDimension(R.dimen.robotHeight) * density);
 
-        int x = (canvas.getWidth() - WIDTH) / 2;
-        int y = canvas.getHeight() - HEIGHT;
+        int x = (canvas.getWidth() - width) / 2;
+        int y = canvas.getHeight() - height;
 
-        rect = new Rect(x, y, x + WIDTH, y + HEIGHT);
-        COLOR = ContextCompat.getColor(ctx, R.color.robotColor);
+        rect = new Rect(x, y, x + width, y + height);
+        int color = ContextCompat.getColor(ctx, R.color.robotColor);
+        PAINT.setColor(color);
 
         MOVE_SPEED = (int) (res.getDimension(R.dimen.robotMoveSpeed) * density);
 
         MOVE_MAX_WIDTH = canvas.getWidth() - rect.width();
-        MOVE_HEIGHT = canvas.getHeight() - HEIGHT;
+        MOVE_HEIGHT = canvas.getHeight() - height;
     }
 
     public void draw(Canvas canvas) {
-        PAINT.setColor(COLOR);
         canvas.drawRect(rect, PAINT);
     }
 
@@ -57,6 +54,6 @@ public class Robot {
     }
 
     public boolean hit(Missile missile) {
-        return rect.contains(missile.getRect());
+        return rect.intersect(missile.getRect());
     }
 }

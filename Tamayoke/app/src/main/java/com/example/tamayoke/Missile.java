@@ -11,33 +11,29 @@ import java.util.Random;
 
 public class Missile {
     private static final Paint PAINT = new Paint();
-    private final int WIDTH;
-    private final int HEIGHT;
-
     private final Rect rect;
-    private final int COLOR;
     private final int MOVE_SPEED;
 
+    /** 動ける最大のX座標 */
     private final int MOVE_MAX_WIDTH;
-    private final int MOVE_MAX_HEIGHT;
     private final int CANVAS_HEIGHT;
 
     public Missile(Context ctx, Canvas canvas, int y) {
         Resources res = ctx.getResources();
         float density = res.getDisplayMetrics().density;
-        WIDTH = (int) (res.getDimension(R.dimen.missileWidth) * density);
-        HEIGHT = (int) (res.getDimension(R.dimen.missileHeight) * density);
+        int width = (int) (res.getDimension(R.dimen.missileWidth) * density);
+        int height = (int) (res.getDimension(R.dimen.missileHeight) * density);
 
         MOVE_SPEED = (int) (res.getDimension(R.dimen.missileSpeed) * density);
 
-        MOVE_MAX_WIDTH = canvas.getWidth() - WIDTH;
-        MOVE_MAX_HEIGHT = canvas.getHeight() - HEIGHT;
+        MOVE_MAX_WIDTH = canvas.getWidth() - width;
         CANVAS_HEIGHT = canvas.getHeight();
 
         int x = getMissileX();
-        rect = new Rect(x, y, x + WIDTH, y + HEIGHT);
-        rect.offset(0, -HEIGHT);
-        COLOR = ContextCompat.getColor(ctx, R.color.missileColor);
+        rect = new Rect(x, y, x + width, y + height);
+        rect.offset(0, -height);
+        int color = ContextCompat.getColor(ctx, R.color.missileColor);
+        PAINT.setColor(color);
     }
 
     private int getMissileX() {
@@ -46,7 +42,6 @@ public class Missile {
     }
 
     public void draw(Canvas canvas) {
-        PAINT.setColor(COLOR);
         canvas.drawRect(rect, PAINT);
     }
 

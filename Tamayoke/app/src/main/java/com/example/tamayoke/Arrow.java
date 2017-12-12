@@ -31,18 +31,15 @@ public class Arrow {
     private final int COLOR;
     private final Bitmap BITMAP;
 
-    private final Direction DIRECTION;
-
     public Arrow(Bitmap bitmap, Context ctx, Canvas canvas, Direction direction) {
         Resources res = ctx.getResources();
-        DIRECTION = direction;
 
         float density = res.getDisplayMetrics().density;
         int width = (int) (res.getDimension(R.dimen.arrowWidth) * density);
         int height = (int) (res.getDimension(R.dimen.arrowHeight) * density);
         BITMAP = Bitmap.createScaledBitmap(bitmap, width, height, false);
 
-        int x = DIRECTION.getInitX(canvas.getWidth(), width);
+        int x = direction.getInitX(canvas.getWidth(), width);
         int y = canvas.getHeight() - height;
 
         rect = new Rect(x, y, x + width, y + height);

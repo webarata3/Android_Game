@@ -4,10 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,8 +13,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameView extends View {
-    private static final Paint PAINT = new Paint();
-
     private static final int FPS = 60;
 
     private Robot robot;
@@ -26,6 +22,10 @@ public class GameView extends View {
 
     private boolean pushLeftArrow;
     private boolean pushRightArrow;
+
+    private Timer timer;
+
+    private boolean gameOver = false;
 
     public GameView(Context context) {
         super(context);
@@ -42,19 +42,23 @@ public class GameView extends View {
                 });
             }
         };
-        Timer timer = new Timer(false);
+        timer = new Timer(false);
         timer.schedule(timerTask, 0, 1000 / FPS);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-         init(canvas);
-         proc();
+        init(canvas);
+        proc();
 
-         robot.draw(canvas);
-         missile.draw(canvas);
-         leftArrow.draw(canvas);
-         rightArrow.draw(canvas);
+        robot.draw(canvas);
+        missile.draw(canvas);
+        leftArrow.draw(canvas);
+        rightArrow.draw(canvas);
+
+        if (gameOver) {
+            timer.cancel();
+        }
     }
 
     private void proc() {
@@ -66,7 +70,9 @@ public class GameView extends View {
             robot.moveRight();
         }
 
-
+        if (robot.hit(missile)) {
+            gameOver = true;
+        }
     }
 
     private void init(Canvas canvas) {
