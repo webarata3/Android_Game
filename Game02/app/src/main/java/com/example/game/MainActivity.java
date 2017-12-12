@@ -1,4 +1,4 @@
-package com.example.game02;
+package com.example.game;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
