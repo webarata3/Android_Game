@@ -1,4 +1,4 @@
-package com.example.game15;
+package com.example.game;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
