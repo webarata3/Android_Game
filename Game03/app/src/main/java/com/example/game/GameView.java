@@ -1,4 +1,4 @@
-package com.example.game03;
+package com.example.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Timer;
