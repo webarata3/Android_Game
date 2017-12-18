@@ -91,12 +91,6 @@ public class GameView extends View {
         }
     }
 
-    private void initMissile(Rect rect, Canvas canvas) {
-        Random random = new Random();
-        int x = random.nextInt(canvas.getWidth());
-        rect.offsetTo(x, -40);
-    }
-
     @Override
     public boolean performClick() {
         super.performClick();
