@@ -13,7 +13,7 @@ import android.view.View;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GameView extends View {
+public class GameView extends View implements MainActivity.OnKeyEventListener {
     private static final Paint PAINT = new Paint();
     private Droid droid;
     private Arrow leftArrow;
@@ -31,7 +31,7 @@ public class GameView extends View {
     private final int MESSAGE_FONT_SIZE;
     private final int MESSAGE_HEIGHT;
 
-    private final int MISSILE_NUM = 3;
+    private final int MISSILE_NUM = 1;
 
     private TimerTask timerTask;
 
@@ -194,5 +194,25 @@ public class GameView extends View {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void pushedLeftKey() {
+        pushLeftArrow = true;
+    }
+
+    @Override
+    public void pushedRightKey() {
+        pushRightArrow = true;
+    }
+
+    @Override
+    public void releasedLeftKey() {
+        pushLeftArrow = false;
+    }
+
+    @Override
+    public void releasedRightKey() {
+        pushRightArrow = false;
     }
 }
