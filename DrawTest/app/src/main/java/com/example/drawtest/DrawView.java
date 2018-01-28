@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.View;
 
 public class DrawView extends View {
@@ -12,9 +11,6 @@ public class DrawView extends View {
 
     private static final int VIEW_WIDTH = 600;
     private static final int VIEW_HEIGHT = 300;
-
-    private int displayWidth;
-    private int displayHeight;
 
     private int marginLeft;
     private int marginTop;
@@ -34,7 +30,7 @@ public class DrawView extends View {
         initOnDraw(canvas);
 
         PAINT.setColor(Color.WHITE);
-        canvas.drawRect(marginLeft, marginTop, VIEW_WIDTH + marginLeft, VIEW_HEIGHT + marginTop, PAINT);
+        canvas.drawRect(adjustX(0), adjustY(0), adjustX(VIEW_WIDTH), adjustY(VIEW_HEIGHT), PAINT);
 
         // 矩形
         PAINT.setColor(Color.RED);
@@ -61,6 +57,14 @@ public class DrawView extends View {
         canvas.drawText("Hello Android", 50, 400, PAINT);
     }
 
+    private int adjustX(int x) {
+        return x + marginLeft;
+    }
+
+    private int adjustY(int y) {
+        return y + marginTop;
+    }
+
     public void initOnDraw(Canvas canvas) {
         if (!init) {
             int canvasWidth = canvas.getWidth();
@@ -82,7 +86,9 @@ public class DrawView extends View {
             double canvasRatioW = (double) initW / (double) canvasWidth;
             double canvasRatioH = (double) initH / (double) canvasHeight;
 
-            Log.i("###########ratio", canvasRatioW + "," + canvasRatioH);
+            int displayWidth;
+            int displayHeight;
+
             if (canvasRatioW > canvasRatioH) {
                 displayWidth = canvasWidth;
                 displayHeight = (int) (initH * (1.0 / canvasRatioW));
@@ -91,12 +97,9 @@ public class DrawView extends View {
                 displayHeight = canvasHeight;
             }
 
-            Log.i("###########d", displayWidth + "," + displayHeight);
-
             float scaleX = (float) displayWidth / (float) VIEW_WIDTH;
             float scaleY = (float) displayHeight / (float) VIEW_HEIGHT;
 
-            Log.i("#########last", scaleX + "," + scaleY);
             scale = scaleX > scaleY ? scaleY : scaleX;
             canvas.scale(scale, scale);
 
